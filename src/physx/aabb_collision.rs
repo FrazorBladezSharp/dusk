@@ -1,5 +1,3 @@
-
-
 /* Axis Aligned Bounding Box Collision
 
     pub struct Boundingbox_aa{ ... }
@@ -19,7 +17,7 @@
         values must be with respect to the object.rectangle
         : a vector ? - giving the direction of collision
                        with (0, 0) = no collision.
-    
+
     useage:
         let (x, y) = aabb_collision::function(object.rectangle, target.rectangle);
 
@@ -28,3 +26,40 @@
         fully inside the target may get stuck when using delta time animation
 */
 
+#[derive(Default)]
+pub struct AABoundingBox {
+    x: f32,
+    y: f32,
+    width: f32,
+    height: f32,
+}
+
+impl AABoundingBox {
+    pub fn new(position_x: f32, position_y: f32, width: f32, height: f32) -> Self {
+        AABoundingBox {
+            x: position_x,
+            y: position_y,
+            width,
+            height,
+        }
+    }
+
+    pub fn detect_collision(&self, target: &AABoundingBox) -> (f32, f32) {
+        // variables
+        let mut x = 0.0;
+        let mut y = 0.0;
+
+        // detect collision
+        if (self.x + self.width) >= target.x
+            && self.x <= (target.x + target.width)
+            && (self.y + self.height) >= target.y
+            && self.y <= (target.y + target.height)
+        {
+            // generate vector
+            x = target.x - self.x;
+            y = target.y - self.y;
+        }
+        // return vector to user
+        (x, y)
+    }
+}
