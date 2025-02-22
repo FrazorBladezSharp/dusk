@@ -44,10 +44,9 @@ impl AABoundingBox {
         }
     }
 
-    pub fn detect_collision(&self, target: &AABoundingBox) -> (f32, f32) {
+    pub fn detect_collision(&self, target: &AABoundingBox) -> bool {
         // variables
-        let mut x = 0.0;
-        let mut y = 0.0;
+        let mut collision = false;
 
         // detect collision
         if (self.x + self.width) >= target.x
@@ -55,11 +54,10 @@ impl AABoundingBox {
             && (self.y + self.height) >= target.y
             && self.y <= (target.y + target.height)
         {
-            // generate vector
-            x = target.x - self.x;
-            y = target.y - self.y;
+            // collision has occured
+            collision = true;
         }
-        // return vector to user
-        (x, y)
+        // return result to user
+        collision
     }
 }
