@@ -1,3 +1,4 @@
+//#![allow(dead_code)]
 /* Axis Aligned Bounding Box Collision
 
     pub struct Boundingbox_aa{ ... }
